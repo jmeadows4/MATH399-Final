@@ -1,0 +1,232 @@
+\documentclass[12pt]{report}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\setlength{\textwidth}{6.5in} 
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{-.1in} 
+\setlength{\topmargin}{-1in}
+\setcounter{MaxMatrixCols}{33}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./ } }
+
+\begin{document}
+
+\hspace{4.5in}\textbf{Name: Alex Richards, }
+\begin{center}{\large\bf MATH 399 Final Project}
+\end{center}
+\begin{enumerate}
+
+
+\item[\bf 1.1] See attached HW10\_Matrix\_Reduction.py.
+
+\item[\bf 2.1]  We will compute the Betti numbers $\beta_p$ and homology groups of the $\mathbb{S}^3$ using its isomorphism to a ``hollow" 4-simplex. We will list the edges, triangles, and tetrahedra in lexicographic order to find $\delta_1$, $\delta_2$, and $\delta_3$ noting there are no higher dimensional simplices:
+$$12\ 13\ 14\ 15\ 23\ 24\ 25\ 34\ 35\ 45$$
+$$123\ 124\ 125\ 134\ 135\ 145\ 234\ 235\ 245\ 345$$
+$$1234\ 1235\ 1245\ 1345\ 2345$$
+
+
+
+$$\delta_1=
+\begin{bmatrix}
+%12\ 13\ 14\ 15\ 23\ 24\ 25\ 34\ 35\ 45
+ 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ %1
+ 1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 \\ %2
+ 0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 \\ %3
+ 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 1 \\ %4
+ 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 1 \\ %5
+\end{bmatrix}$$
+
+$$\delta_2=
+\begin{bmatrix}
+%123\ 124\ 125\ 134\ 135\ 145\ 234\ 235\ 245\ 345
+ 1  & 1  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0 \\ %12
+ 1  & 0  & 0  & 1  & 1  & 0  & 0  & 0  & 0  & 0 \\ %13
+ 0  & 1  & 0  & 1  & 0  & 1  & 0  & 0  & 0  & 0 \\ %14
+ 0  & 0  & 1  & 0  & 1  & 1  & 0  & 0  & 0  & 0 \\ %15
+ 1  & 0  & 0  & 0  & 0  & 0  & 1  & 1  & 0  & 0 \\ %23
+ 0  & 1  & 0  & 0  & 0  & 0  & 1  & 0  & 1  & 0 \\ %24
+ 0  & 0  & 1  & 0  & 0  & 0  & 0  & 1  & 1  & 0 \\ %25
+ 0  & 0  & 0  & 1  & 0  & 0  & 1  & 0  & 0  & 1 \\ %34
+ 0  & 0  & 0  & 0  & 1  & 0  & 0  & 1  & 0  & 1 \\ %35
+ 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 1  & 1 \\ %45
+\end{bmatrix}$$
+
+$$\delta_3=
+\begin{bmatrix}
+%1234\ 1235\ 1245\ 1345\ 2345
+ 1   & 1   & 0   & 0   & 0 \\ %123
+ 1   & 0   & 1   & 0   & 0 \\ %124
+ 0   & 1   & 1   & 0   & 0 \\ %125
+ 1   & 0   & 0   & 1   & 0 \\ %134
+ 0   & 1   & 0   & 1   & 0 \\ %135
+ 0   & 0   & 1   & 1   & 0 \\ %145
+ 1   & 0   & 0   & 0   & 1 \\ %234
+ 0   & 1   & 0   & 0   & 1 \\ %235
+ 0   & 0   & 1   & 0   & 1 \\ %245
+ 0   & 0   & 0   & 1   & 1 \\ %345
+\end{bmatrix}$$
+
+We will use the attached program to calculate the numbers needed to find the Betti numbers. We find that $b_0 = b_2 = 4$, $b_1 = 6$, $z_0=n_0=5$, $z_1 = 6$, $z_2=4$, $z_3=1$, and each other $b_p$ and $z_p$ equal zero. Now we will find each $\beta_p$ with the equation $\beta_p=z_p-b_p$, so we have $\beta_0=5-4=1$, $\beta_1=6-6=0$, $\beta_2=4-4=0$, $\beta_3=1-0=1$, and $\beta_p = 0$ for every other $p$. To find each $H_p(\mathbb{T}^2)$, we observe that $H_p \cong (\mathbb{Z}/2\mathbb{Z})^{\beta_p}$. Thus we have $H_0 \cong H_3 \cong \mathbb{Z}/2\mathbb{Z}$ and and $H_p \cong \{0\}$ for all other $p$. 
+
+\item[\bf 3.1] We repeat this process for the Dunce Cap using the provided triangulation, and then determine whether it is contractible. Thus we will list the edges and triangles in lexicographic order to find $\delta_1$ and $\delta_2$, noting there are no higher dimensional simplices:
+$$12\ 13\ 14\ 15\ 16\ 17\ 18\ 23\ 24\ 25\ 27\ 28\ 34\ 35\ 36\ 37\ 38\ 45\ 46\ 48\ 56\ 67\ 68\ 78$$
+$$124\ 127\ 128\ 134\ 135\ 136\ 156\ 178\ 235\ 237\ 238\ 245\ 348\ 367\ 456\ 468\ 678$$
+
+$$\delta_1=
+\begin{bmatrix}
+%12\ 13\ 14\ 15\ 16\ 17\ 18\ 23\ 24\ 25\ 27\ 28\ 34\ 35\ 36\ 37\ 38\ 45\ 46\ 48\ 56\ 67\ 68\ 78
+ 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ %1
+ 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ %2
+ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ %3
+ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\ %4
+ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 \\ %5
+ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 0 \\ %6
+ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\ %7
+ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 1 \\ %8
+\end{bmatrix}$$
+
+$$\delta_2=
+\begin{bmatrix}
+%124\ 127\ 128\ 134\ 135\ 136\ 156\ 178\ 235\ 237\ 238\ 245\ 348\ 367\ 456\ 468\ 678
+ 1  & 1  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %12
+ 0  & 0  & 0  & 1  & 1  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %13
+ 1  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %14
+ 0  & 0  & 0  & 0  & 1  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %15
+ 0  & 0  & 0  & 0  & 0  & 1  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %16
+ 0  & 1  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %17
+ 0  & 0  & 1  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %18
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 1  & 1  & 0  & 0  & 0  & 0  & 0  & 0  \\ %23
+ 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  \\ %24
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  \\ %25
+ 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %27
+ 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  \\ %28
+ 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  \\ %34
+ 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ %35
+ 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  \\ %36
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 1  & 0  & 0  & 0  \\ %37
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 1  & 0  & 0  & 0  & 0  \\ %38
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 1  & 0  & 0  \\ %45
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 1  & 0  \\ %46
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 1  & 0  \\ %48
+ 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  \\ %56
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 1  \\ %67
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 1  \\ %68
+ 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 1  \\ %78
+\end{bmatrix}$$
+We will again use the attached program to calculate the numbers needed to find the Betti numbers. We find that $b_0 = 7$, $b_1 = 17$, $z_0=n_0=8$, $z_1 = 17$, $z_2=0$, and each other $b_p$ and $z_p$ equal zero. Now we will find each $\beta_p$ with the equation $\beta_p=z_p-b_p$, so we have $\beta_0=8-7=1$, $\beta_1=17-17=0$, $\beta_2=0-0=0$, and $\beta_p = 0$ for every other $p$. Additionally, we have $H_0 \cong \mathbb{Z}/2\mathbb{Z}$ and $H_p \cong \{0\}$ for all other $p$. Finally we see from this that the Dunce Cap is contractible, as $\beta_0=1$ tells us it is connected and the other Betti numbers being zero tells us it has no holes or voids or so on, and thus it can be contracted to a point. $\qed$
+
+\item[\bf 4.1] We will compute the Hessian and the index of the origin, if defined, for each function, with the foreknowledge that the origin is a critical point. We begin with $f(x_1,x_2)=x_1^2+x_2^2$. First, we take the first order partial derivatives:
+$$\frac{\partial f}{\partial x_1} = 2x_1$$
+$$\frac{\partial f}{\partial x_2} = 2x_2$$
+Now, we take the second order partial derivatives:
+$$\frac{\partial^2 f}{\partial x_1^2} = \frac{\partial^2 f}{\partial x_2^2} = 2$$
+$$\frac{\partial^2 f}{\partial x_1\partial x_2} = \frac{\partial^2 f}{\partial x_2\partial x_1} = 0$$
+Therefore we have the following Hessian:
+$$H=\begin{bmatrix}
+2 & 0 \\
+0 & 2 
+\end{bmatrix}$$
+To examine what type of critical point $(a_1,a_2)$ is in a two variable function, we take the determinant of this matrix at that point. If $|H|=0$ then the critical point is degenerate. If $|H|<0$ then the point is a saddle point of $f$. If $|H|>0$ then it is a local minimum if $\frac{\partial^2 f}{\partial x_1^2}(a_1,a_2) > 0$ and a local maximum if it is less than zero. The determinant of this is $|H| = 2(2)-0=4 > 0$, meaning the critical point at the origin is non-degenerate, and since $\frac{\partial^2 f}{\partial x_1^2}(0,0)=2$ this is a local minimum. $\qed$
+%Thus we look at the local neighborhood of the critical point which is an upwards facing paraboloid, meaning the point is index 0.
+
+\item[\bf 4.2] Now we will examine $f(x_1,x_2)=x_1x_2$:
+$$\frac{\partial f}{\partial x_1} = x_2$$
+$$\frac{\partial f}{\partial x_2} = x_1$$
+$$\frac{\partial^2 f}{\partial x_1^2} = \frac{\partial^2 f}{\partial x_2^2} = 0$$
+$$\frac{\partial^2 f}{\partial x_1\partial x_2} = \frac{\partial^2 f}{\partial x_2\partial x_1} = 1$$
+$$H=\begin{bmatrix}
+0 & 1 \\
+1 & 0 
+\end{bmatrix}$$
+We see that $|H|=0-1(1)=-1$, so the critical point at the origin is a saddle point. $\qed$
+%Graphing the function on Geogebra, we see it is a saddle point and therefore has index 1.
+
+\item[\bf 4.3] Next we examine $f(x_1,x_2)=(x_1+x_2)^2 = x_1^2+2x_1x_2+x_2^2$:
+$$\frac{\partial f}{\partial x_1} = 2x_1+2x_2$$
+$$\frac{\partial f}{\partial x_2} = 2x_1+2x_2$$
+$$\frac{\partial^2 f}{\partial x_1^2} = \frac{\partial^2 f}{\partial x_2^2} = 2$$
+$$\frac{\partial^2 f}{\partial x_1\partial x_2} = \frac{\partial^2 f}{\partial x_2\partial x_1} = 2$$
+$$H=\begin{bmatrix}
+2 & 2 \\
+2 & 2 
+\end{bmatrix}$$
+As $|H|=2(2)-2(2) = 0$, this critical point is degenerate so the index is undefined. $\qed$
+
+\item[\bf 4.4] Now we examine the three variable function $f(x_1,x_2,x_3)=x_1x_2x_3$:
+$$\frac{\partial f}{\partial x_1} = x_2x_3$$
+$$\frac{\partial f}{\partial x_2} = x_1x_3$$
+$$\frac{\partial f}{\partial x_3} = x_1x_2$$
+$$\frac{\partial^2 f}{\partial x_1^2} = \frac{\partial^2 f}{\partial x_2^2} = \frac{\partial^2 f}{\partial x_3^2} = 0$$
+$$\frac{\partial^2 f}{\partial x_1\partial x_2} = \frac{\partial^2 f}{\partial x_2\partial x_1} = x_3$$
+As swapping the variables does not change the function, we can in general say $\frac{\partial^2 f}{\partial x_i\partial x_j} = x_k$ where $i \neq j \neq k$ which gives us the other six elements of the Hessian matrix:
+$$H=\begin{bmatrix}
+0   & x_3 & x_2 \\
+x_3 & 0   & x_1 \\
+x_2 & x_1 & 0 
+\end{bmatrix}$$
+We see that at the origin $H=0$ so $|H|=0$ and this critical point is degenerate. $\qed$
+%\begin{align*}
+%|H|&= 0\begin{vmatrix} 0 & x_1 \\ x_1 & 0 \end{vmatrix} - x_3\begin{vmatrix} x_3 & x_1 \\ x_2 & 0 \end{vmatrix} + x_2\begin{vmatrix} x_3 & 0 \\ x_2 & x_1 \end{vmatrix} \\
+%&=0-x_3(0(x_3)-x_1x_2)+x_2(x_1x_3-0(x_2)) \\
+%&= x_1x_2x_3 + x_1x_2x_3 \\
+%&= 2x_1x_2x_3
+%\end{align*}
+
+
+\item[\bf 4.5] Next we examine $f(x_1,x_2,x_3)=x_1x_2+x_1x_3+x_2x_3$:
+$$\frac{\partial f}{\partial x_1} = x_2+x_3$$
+$$\frac{\partial f}{\partial x_2} = x_1+x_3$$
+$$\frac{\partial f}{\partial x_3} = x_1+x_2$$
+$$\frac{\partial^2 f}{\partial x_1^2} = \frac{\partial^2 f}{\partial x_2^2} = \frac{\partial^2 f}{\partial x_3^2} = 0$$
+$$\frac{\partial^2 f}{\partial x_1\partial x_2} = \frac{\partial^2 f}{\partial x_2\partial x_1} = 1$$
+Similar to before, we see that all mixed partial derivatives will equal 1, allowing us to write the Hessian matrix:
+$$H=\begin{bmatrix}
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 
+\end{bmatrix}$$
+We will now calculate its determinant:
+\begin{align*}
+|H|&= 0\begin{vmatrix} 0 & 1 \\ 1 & 0 \end{vmatrix} - 1\begin{vmatrix} 1 & 1 \\ 1 & 0 \end{vmatrix} + 1\begin{vmatrix} 1 & 0 \\ 1 & 1 \end{vmatrix} \\
+&=2\begin{vmatrix} 1 & 0 \\ 1 & 1 \end{vmatrix} \\
+&= 2(1(1)-0(1) = 2
+\end{align*}
+As its determinant was 2 the critical point at the origin is non-degenerate. To know the index, we need to find the eigenvalues of the matrix. This is the $\lambda$ for which $|H-\lambda I|=0$, so we have the following:
+\begin{align*}
+0&= |H-\lambda I| \\
+&=\begin{vmatrix}
+-\lambda & 1 & 1 \\
+1 & -\lambda & 1 \\
+1 & 1 & -\lambda 
+\end{vmatrix} \\
+&= -\lambda\begin{vmatrix} -\lambda & 1 \\ 1 & -\lambda \end{vmatrix} - 1\begin{vmatrix} 1 & 1 \\ 1 & -\lambda \end{vmatrix} + 1\begin{vmatrix} 1 & -\lambda \\ 1 & 1 \end{vmatrix} \\
+&= -\lambda\begin{vmatrix} -\lambda & 1 \\ 1 & -\lambda \end{vmatrix} + 2\begin{vmatrix} 1 & -\lambda \\ 1 & 1 \end{vmatrix} \\
+&= -\lambda(\lambda^2-1) + 2(1+\lambda) \\
+&= -\lambda^3+3\lambda +2
+&= \lambda^3-3\lambda -2
+\end{align*}
+So we have the equation $\lambda^3-3\lambda -2=0$. From here, we see $\lambda=2$ is a solution so we divide both sides by $(\lambda-2)$ and get $\lambda^2+2\lambda+1=0$ so our other solution is $\lambda=-1$. Since these have alternate signs and the critical point was non-degenerate, this is a saddle point which either has index 1 or 2. $\qed$
+
+\item[\bf 4.6] Finally we will examine $f(x_1,x_2,x_3)=(x_1+x_2+x_3)^2 = x_1^2 + x_2^2 + x_3^2 + 2x_1x_2 + 2x_1x_3 + 2x_2x_3$:
+$$\frac{\partial f}{\partial x_1} = \frac{\partial f}{\partial x_2} = \frac{\partial f}{\partial x_3} = 2x_1 + 2x_2 + 2x_3$$
+$$\frac{\partial^2 f}{\partial x_1^2} = 2$$
+We see that since all first derivatives are equal, and that a second derivative is a constant, that all second derivatives will equal $2$ as well. Thus we have the following Hessian:
+$$H=\begin{bmatrix}
+2 & 2 & 2 \\
+2 & 2 & 2 \\
+2 & 2 & 2
+\end{bmatrix}$$
+This matrix is clearly singular as row reducing will give a row of zeros, so its determinant is zero and this critical point is degenerate. $\qed$
+
+
+\end{enumerate}
+
+\end{document} 
+
+
+
