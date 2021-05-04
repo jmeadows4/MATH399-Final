@@ -25,17 +25,11 @@ with open('tahoe_city.csv', newline='') as csvfile:
         # 100 points in an arbitrarily chosen range. Can definitely mess with this
         if i >= 2000 and i <2100:
             # Get the number of empty values for a row
+            columns = ["TMIN", "TMAX", 'SNOW', 'SNWD', 'PRCP']
             num_empty_data = 0
-            if row['TMIN'] == "":
-                num_empty_data += 1
-            if row['TMAX'] == "":
-                num_empty_data += 1
-            if row['SNOW'] == "":
-                num_empty_data += 1
-            if row['SNWD'] == "":
-                num_empty_data += 1
-            if row['PRCP'] == "":
-                num_empty_data += 1
+            for field in columns: 
+                if row[field] == "": 
+                    num_empty_data += 1
             # Only append if there are 3 or more values in the row
             if num_empty_data < 3:
                 mintemps.append(string_to_float(row['TMIN']))
