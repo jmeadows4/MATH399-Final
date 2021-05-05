@@ -23,7 +23,7 @@ with open('tahoe_city.csv', newline='') as csvfile:
         # Right now, trying to use all the data stalls the program when the
         # fill_rips function is called. So right now we are only considering
         # 100 points in an arbitrarily chosen range. Can definitely mess with this
-        if i >= 2000 and i <2100:
+        if i >= 4000 and i <4100:
             # Get the number of empty values for a row
             columns = ["TMIN", "TMAX", 'SNOW', 'SNWD', 'PRCP']
             num_empty_data = 0
@@ -49,9 +49,14 @@ point_cloud = np.vstack((mintemps,maxtemps,snow,snowdepth,precipitation)).T
 print(point_cloud.shape)
 
 # Call fill_rips to compute the rips filtrations. 5 is the number of dimensions,
-# .3 is the radius of the balls. It's an arbitrary value
-f = d.fill_rips(point_cloud, 5, .3)
-print(f)
-# Not really sure what this is printing
-for s in f:
-    print(s)
+# 8 is the radius of the balls. It's an arbitrary value
+f = d.fill_rips(point_cloud, 5, 8)
+print("Number of simplices(I think?)", len(f))
+
+# Plot the diagram and barcodes from the vietoris-rips filtrations above. This
+# code is pretty much straight ripped from dionysus documentation
+p = d.homology_persistence(f)
+dgms = d.init_diagrams(p,f)
+d.plot.plot_diagram(dgms[1], show=True)
+d.plot.plot_bars(dgms[1],show=True)
+
