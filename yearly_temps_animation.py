@@ -103,7 +103,7 @@ for min_t, max_t in zip(yearly_mintemps,yearly_maxtemps):
 def update(frame_number):
     for circle in circles:
         circle.set_radius(frame_number*0.005)
-    txt.set_text('Radius: {}'.format(frame_number*0.005))
+    txt.set_text('Radius: {:.2f}'.format(frame_number*0.005))
 
 # start animation
 animation = FuncAnimation(fig, update, frames = 200,interval=20)
