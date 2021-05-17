@@ -16,6 +16,7 @@ mintemps = []
 maxtemps = [] 
 maxtemp_avgs = [] 
 mintemp_avgs = [] 
+maxtemp_avgs_annual={0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []} 
 precipitation = [] 
 snow = [] 
 with open('tahoe_city.csv', newline='') as csvfile: 
@@ -24,6 +25,7 @@ with open('tahoe_city.csv', newline='') as csvfile:
     # Loop through each row in the file, also getting the index
     year = 1903
     month = 9
+    monthly_max_temps = [] 
     yearly_max_temps = [] 
     yearly_min_temps = [] 
     yearly_precipitation = []
@@ -35,6 +37,17 @@ with open('tahoe_city.csv', newline='') as csvfile:
 
         if int(row_month) != month: 
             month = int(row_month)
+            valid_month = True
+            if(len(monthly_max_temps) < 27): 
+                #Disregard month, not enough points to avg
+                valid_month = False
+
+            if valid_month: 
+                max_avg = sum(monthly_max_temps)/len(monthly_max_temps)
+                maxtemp_avgs_annual[int(row_month)].append(max_avg)
+
+            monthly_max_temps = [] 
+
         if int(row_year) > year: 
             year += 1
             #If any of the dimesnions are empty, do not avg year
@@ -67,6 +80,7 @@ with open('tahoe_city.csv', newline='') as csvfile:
             yearly_snow = [] 
 
         if row['TMAX'] != "": 
+            monthly_max_temps.append(int(row['TMAX']))
             yearly_max_temps.append(int(row['TMAX']))
         if row['TMIN'] != "": 
             yearly_min_temps.append(int(row['TMIN']))
@@ -103,6 +117,17 @@ ax.set_ylabel('Temperature Farenheight')
 ax.set_xlabel('Year')
 ax.set_title('Maximum Temperatures 1950-1955')
 #plt.show()
+
+#Monthly Temperatures
+fig, ax = plt.subplots(figsize=(20,10))
+#Code for all 12 months 
+#for month, values in maxtemp_avgs_annual.items(): 
+#    ax.scatter([month for i in range(len(values))], values, color='red')
+monthly_year_avgs = maxtemp_avgs_annual[11]
+ax.plot([year+1903 for year in range(len(monthly_year_avgs))], monthly_year_avgs, color='red')
+ax.set_xlabel('Month')
+ax.set_ylabel('Maximum Temperatures (F)')
+ax.set_title('Monthly Avg Max Temps')
 
 #The point cloud 
 fig, ax = plt.subplots(figsize=(20,10))
