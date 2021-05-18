@@ -19,6 +19,10 @@ mintemp_avgs = []
 maxtemp_avgs_annual={0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []} 
 precipitation = [] 
 snow = [] 
+mintemps_daily = [] 
+maxtemps_daily = [] 
+precipitation_daily = [] 
+snow_daily = [] 
 with open('tahoe_city.csv', newline='') as csvfile: 
     #Use DictReader so list doesn't contain header row 
     climatereader = csv.DictReader(csvfile)
@@ -34,6 +38,11 @@ with open('tahoe_city.csv', newline='') as csvfile:
     for row in climatereader:
         row_month = row['DATE'].strip().split('-')[1]
         row_year = row['DATE'].strip().split('-')[0]
+
+        maxtemps_daily.append(string_to_float(row['TMAX']))
+        mintemps_daily.append(string_to_float(row['TMIN']))
+        precipitation_daily.append(string_to_float(row['PRCP']))
+        snow_daily.append(string_to_float(row['SNOW']))
 
         if int(row_month) != month: 
             month = int(row_month)
@@ -124,28 +133,55 @@ fig, ax = plt.subplots(figsize=(20,10))
 #for month, values in maxtemp_avgs_annual.items(): 
 #    ax.scatter([month for i in range(len(values))], values, color='red')
 monthly_year_avgs = maxtemp_avgs_annual[11]
-ax.plot([year+1903 for year in range(len(monthly_year_avgs))], monthly_year_avgs, color='red')
+ax.plot([year+1903 for year in range(len(monthly_year_avgs))], monthly_year_avgs, color='red', label='monthly max temp')
+average_max_temp = sum(monthly_year_avgs)/len(monthly_year_avgs)
+ax.axhline(y=average_max_temp, label='avg temp for december')
 ax.set_xlabel('Month')
 ax.set_ylabel('Maximum Temperatures (F)')
-ax.set_title('Monthly Avg Max Temps')
+ax.set_title('Monthly Avg Max Temps for December')
+ax.legend()
 
-#The point cloud 
-fig, ax = plt.subplots(figsize=(20,10))
+#The point cloud for temps, precipitation, and snow
+fig = plt.subplots(figsize=(20,10))
 maxtemp_years = [day for day in range(len(maxtemp_avgs))]
 mintemp_years = [day for day in range(len(mintemp_avgs))]
 precipitation_years = [day for day in range(len(precipitation))]
 snow_years = [day for day in range(len(snow))]
-ax.scatter(maxtemp_years, maxtemp_avgs, color='red', label='max temps')
-ax.scatter(mintemp_years, mintemp_avgs, color='blue', label='min temps')
-ax.scatter(precipitation_years, precipitation, color='green', label='rain')
-ax.scatter(snow_years, snow, color='orange', label='snow')
-ax.set_xlabel('Year')
-ax.set_ylabel('temperatures (F), rain (inches), snow (feet)')
-ax.set_title('Point Cloud')
+ax1 = plt.subplot(221)
+ax1.scatter(maxtemp_years, maxtemp_avgs, color='red', label='max temps')
+ax1.scatter(mintemp_years, mintemp_avgs, color='blue', label='min temps')
+ax1.scatter(precipitation_years, precipitation, color='green', label='rain')
+ax1.scatter(snow_years, snow, color='orange', label='snow')
+ax1.set_xlabel('Year')
+ax1.set_ylabel('temperatures (F), rain (inches), snow (feet)')
+ax1.set_title('Point Cloud')
 num_years = 2021-1903
 num_ticks = 6
 tick_distance = int(num_years/num_ticks)
 xtick_labels = [1903+(x*tick_distance) for x in range(0, num_ticks+1)]#, 1903+tick_distance, 1903+2*tick_distance] 
-ax.set_xticklabels(xtick_labels)
-ax.legend()
+years = [year for year in range(1900-20, 2020, 20)]
+ax1.set_xticklabels(xtick_labels)
+ax1.legend()
+
+ax2 = plt.subplot(222)
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+for month, month_avgs in maxtemp_avgs_annual.items(): 
+    ax2.scatter([year for year in range(len(month_avgs))], month_avgs, 
+            label = months[month-1])
+ax2.legend()
+ax2.set_xlabel('Years')
+ax2.set_ylabel('Maximum Temperatures (F)')
+ax2.set_title("Avg Monthly Max Temperatures") 
+ax2.set_xticklabels(years)
+
+#Point cloud for daily temps, precipitation, and snow 
+ax3 = plt.subplot(212)
+ax3.scatter([day for day in range(len(maxtemps_daily))], maxtemps_daily, color='r', label='max temps') 
+ax3.scatter([day for day in range(len(mintemps_daily))], mintemps_daily, color='b', label='min temps') 
+ax3.scatter([day for day in range(len(snow_daily))], snow_daily, label='snow') 
+ax3.scatter([day for day in range(len(precipitation_daily))], precipitation_daily, label='precipitation') 
+ax3.legend()
+ax3.set_title("Point Cloud for Daily Values")
+ax3.set_xlabel("Day")
+ax3.set_ylabel('temperatures (F), rain (inches), snow (inches)')
 plt.show()
