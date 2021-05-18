@@ -53,12 +53,12 @@ with open('tahoe_city.csv', newline='') as csvfile:
 
             
 
-#point_cloud = np.vstack((yearly_mintemps, yearly_maxtemps)).T
-#rips_complex = gudhi.RipsComplex(points=point_cloud, max_edge_length=7)
-#simplex_tree = rips_complex.create_simplex_tree(max_dimension=3)
-#diag = simplex_tree.persistence(min_persistence=0.4)
+point_cloud = np.vstack((yearly_mintemps, yearly_maxtemps)).T
+rips_complex = gudhi.RipsComplex(points=point_cloud, max_edge_length=7)
+simplex_tree = rips_complex.create_simplex_tree(max_dimension=3)
+diag = simplex_tree.persistence(min_persistence=0.4)
 
-##gudhi.plot_persistence_barcode(diag)
-plt.scatter(yearly_mintemps, yearly_maxtemps)
+gudhi.plot_persistence_barcode(diag)
+
 plt.show()
 
