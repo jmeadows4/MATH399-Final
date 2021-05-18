@@ -173,6 +173,8 @@ Python Library Dionysus by Dmitriy Morozov
 
 GUDHI User and Reference Manual, The GUDHI Project, GUDHI Editorial Board, 3.4.1, 2021, "https://gudhi.inria.fr/doc/3.4.1/"\par
 
+Past Weather by Zip Code - Data Table. Past Weather by Zip Code - Data Table | NOAA Climate.gov. (n.d.). https://www.climate.gov/maps-data/dataset/past-weather-zip-code-data-table. \par
+
 \clearpage
 \section*{Evaluation}
 We encountered several challenges during this project. To start, documentation for Dionysus is fairly sparse, and unfinished. It was unclear what format Dionysus expected the point cloud to be in, the syntax of the filtration returned by the Vietoris-Rips function, and what to do with the filtration once we had it. Another struggle we encountered was the amount of computation time that calculating the Vietoris-Rips Complex took. At first, it was very hard to pinpoint the issue, because the program would never come to completion. Even after cutting our data size in half, it would still run for an indefinite time, with one notable run taking over 2 hours before it was force-quit. In an effort to see if the program would ever complete, we used around 100 points, which would take at most a minute to two minutes. We decided this was a range that we felt comfortable with, and decided to instead take the yearly averages of the data, in order to decrease the size of the point cloud.\par 
